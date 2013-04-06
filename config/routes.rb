@@ -1,5 +1,9 @@
 RailsNews::Application.routes.draw do
+  devise_for :users
+
   resources :news_items
+
+  root :to => 'news_items#index'
 
 
   # The priority is based upon order of creation:
