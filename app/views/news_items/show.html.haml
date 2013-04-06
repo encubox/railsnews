@@ -1,0 +1,16 @@
+- title "News Item"
+
+%p
+  %strong Title:
+  = @news_item.title
+
+%p
+  %strong Body:
+  = @news_item.body
+
+%p
+  = link_to "Edit", edit_news_item_path(@news_item)
+  |
+  = link_to "Destroy", @news_item, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", news_items_path

@@ -1,0 +1,17 @@
+- title "News Items"
+
+- if @news_items.count > 0
+  %table.table
+    %tr      
+      %th Title
+      %th
+      %th
+      %th
+    - for news_item in @news_items
+      %tr       
+        %td= news_item.title
+        %td= link_to 'Show', news_item
+        %td= link_to 'Edit', edit_news_item_path(news_item)
+        %td= link_to 'Destroy', news_item, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New News Item", new_news_item_path
