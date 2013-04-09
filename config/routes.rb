@@ -1,6 +1,10 @@
 RailsNews::Application.routes.draw do
   devise_for :users
 
+  resources :users do
+    resources :news_items    
+  end
+
   resources :news_items
 
   root :to => 'news_items#index'

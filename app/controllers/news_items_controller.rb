@@ -1,7 +1,15 @@
 class NewsItemsController < ApplicationController
 
+  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :check_news_item_ownership!, :only => [:edit, :update, :destroy]
+
   def index
-    @news_items = NewsItem.all
+    if params[:user_id].present?
+      @user = User.find_by_id(params[:user_id])
+      @news_items = @user.news_items
+    else
+      @news_items = NewsItem.order("created_at DESC")
+    end
   end
 
   def show
@@ -14,6 +22,7 @@ class NewsItemsController < ApplicationController
 
   def create
     @news_item = NewsItem.new(params[:news_item])
+    @news_item.user_id = current_user.id
     if @news_item.save
       redirect_to @news_item, :notice => "Successfully created news item."
     else
@@ -38,6 +47,15 @@ class NewsItemsController < ApplicationController
     @news_item = NewsItem.find(params[:id])
     @news_item.destroy
     redirect_to news_items_path, :notice => "Successfully destroyed news item."
+  end
+
+  private
+
+  def check_news_item_ownership!
+    @news_item = NewsItem.find(params[:id])
+    if !current_user.present? || @news_item.user_id != current_user.id
+      redirect_to root_path, :notice => "Your are not allowed to visit this page."
+    end
   end
 
 end

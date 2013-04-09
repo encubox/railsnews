@@ -11,14 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130406182212) do
+ActiveRecord::Schema.define(:version => 20130406210654) do
 
   create_table "news_items", :force => true do |t|
     t.string   "title"
     t.text     "body"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "user_id"
   end
+
+  add_index "news_items", ["user_id"], :name => "index_news_items_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false

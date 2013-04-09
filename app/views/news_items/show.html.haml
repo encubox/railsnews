@@ -5,6 +5,14 @@
   = @news_item.title
 
 %p
+  %strong Created At:
+  = @news_item.created_at
+
+%p
+  %strong User:
+  = @news_item.user.email
+
+%p
   %strong Body:
   = @news_item.body
 

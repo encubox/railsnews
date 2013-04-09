@@ -11,12 +11,18 @@
     = yield(:head)
 
   %body
-    #header      
+    #userbar
       - if user_signed_in?          
         %b= current_user.email
+        = link_to 'My News Items', user_news_items_path(current_user)
         = link_to 'Sign out', destroy_user_session_path, :method => :delete
       - else
         = link_to 'Sign in', new_user_session_path
+    %hr
+    #menu    
+      = link_to '[All News Items]', root_path
+      = link_to '[New News Item]', new_news_item_path
+    %hr
     #body
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"

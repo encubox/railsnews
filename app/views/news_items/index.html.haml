@@ -1,17 +1,26 @@
-- title "News Items"
+- if @user.present?
+  - title "News Items Created by #{@user.email}"
+- else
+  - title "News Items"
 
-- if @news_items.count > 0
+- if @news_items.present?
   %table.table
     %tr      
       %th Title
+      %th Created At
+      %th User
       %th
       %th
       %th
     - for news_item in @news_items
       %tr       
         %td= news_item.title
+        %td= news_item.created_at
+        %td= news_item.user.email
         %td= link_to 'Show', news_item
-        %td= link_to 'Edit', edit_news_item_path(news_item)
-        %td= link_to 'Destroy', news_item, :confirm => 'Are you sure?', :method => :delete
+        -if user_signed_in? && news_item.user_id == current_user.id
+          %td= link_to 'Edit', edit_news_item_path(news_item)
+          %td= link_to 'Destroy', news_item, :confirm => 'Are you sure?', :method => :delete
 
-%p= link_to "New News Item", new_news_item_path
+-if user_signed_in? && @user.nil?
+  %p= link_to "New News Item", new_news_item_path
