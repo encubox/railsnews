@@ -4,5 +4,5 @@
 * rails s
 
 ## Sample user
-email: admin@example.com
+email: admin@example.com\
 password: password
