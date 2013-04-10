@@ -1,6 +1,5 @@
 !!!
 %html
-
   %head
     %title
       = yield(:title) || "Rails News"
@@ -9,7 +8,6 @@
     = javascript_include_tag 'application'
     = csrf_meta_tag
     = yield(:head)
-
   %body
     #userbar
       - if user_signed_in?          
@@ -26,8 +24,6 @@
     #body
       - flash.each do |name, msg|
         = content_tag :div, msg, :id => "flash_#{name}"
-
       - if show_title?
         %h1= yield(:title)
-
       = yield

@@ -1,5 +1,15 @@
 - title "News Item"
 
+- if @news_item.allowed_to_rate?(@ip, current_user)
+  %p  
+    #stars{ :'data-id' => @news_item.id,  :'data-average' => @news_item.average_rating }  
+- else  
+  #stars.jDisabled{ :'data-id' => @news_item.id,  :'data-average' => @news_item.average_rating }
+  %p
+    %i You are not allowed to rate.  
+  %p
+    %i Limitations: 1 vote from IP address or 1 vote for user account.
+
 %p
   %strong Title:
   = @news_item.title

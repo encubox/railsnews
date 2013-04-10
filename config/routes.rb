@@ -7,6 +7,8 @@ RailsNews::Application.routes.draw do
 
   resources :news_items
 
+  post 'news_items/rate'
+
   root :to => 'news_items#index'
 
 

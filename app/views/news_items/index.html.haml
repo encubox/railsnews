@@ -9,6 +9,7 @@
       %th Title
       %th Created At
       %th User
+      %th Rating
       %th
       %th
       %th
@@ -17,6 +18,7 @@
         %td= news_item.title
         %td= news_item.created_at
         %td= news_item.user.email
+        %td= news_item.average_rating
         %td= link_to 'Show', news_item
         -if user_signed_in? && news_item.user_id == current_user.id
           %td= link_to 'Edit', edit_news_item_path(news_item)
